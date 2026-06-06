@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>All Jobs Teletalk Form Filler</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700&family=Fira+Code:wght@400;500&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="popup.css">
+</head>
+<body>
+  <div class="popup-container">
+    <!-- Header -->
+    <header class="header">
+      <div class="header-content">
+        <div class="logo-area">
+          <span class="logo-emoji">📋</span>
+          <div>
+            <h1>All Jobs Teletalk Form Filler</h1>
+            <p>Auto-fill for AllJobs, Teletalk & BJSC forms</p>
+          </div>
+        </div>
+      </div>
+    </header>
+
+    <!-- Content Body -->
+    <main class="main-content">
+      <!-- Profile Manager -->
+      <section class="section">
+        <div class="section-header">
+          <label for="profileSelect">👤 Active Profile</label>
+          <button id="newProfileBtn" class="btn btn-mini btn-accent" title="Create New Profile">+ New</button>
+        </div>
+        <div class="profile-selector-row">
+          <select id="profileSelect" class="form-select">
+            <option value="">-- Select Profile --</option>
+          </select>
+          <button id="deleteProfileBtn" class="btn btn-danger btn-icon" title="Delete Active Profile">🗑️</button>
+        </div>
+      </section>
+
+      <!-- Profile Name Edit (Shown when editing name) -->
+      <section id="profileRenameSection" class="section hidden">
+        <div class="form-group">
+          <label for="profileNameInput">Profile Name</label>
+          <div class="profile-selector-row">
+            <input type="text" id="profileNameInput" class="form-input" placeholder="e.g. Rahman Law Profile">
+            <button id="saveProfileNameBtn" class="btn btn-success">Rename</button>
+          </div>
+        </div>
+      </section>
+
+      <!-- JSON Data Editor -->
+      <section class="section flex-grow">
+        <div class="section-header">
+          <label for="profileJsonTextarea">📝 JSON Profile Data</label>
+          <div class="header-actions">
+            <button id="loadSampleBtn" class="btn btn-mini btn-info">Load Sample</button>
+          </div>
+        </div>
+        <textarea id="profileJsonTextarea" class="code-editor" rows="12" placeholder='{\n  "name": "Full Name",\n  "father": "Father Name"\n}'></textarea>
+      </section>
+
+      <!-- Actions Footer -->
+      <section class="actions-row">
+        <button id="saveBtn" class="btn btn-primary">💾 Save Profile</button>
+      </section>
+
+      <!-- Import/Export & Utilities -->
+      <section class="section border-top">
+        <div class="button-grid">
+          <button id="exportBtn" class="btn btn-secondary">📤 Export Profile</button>
+          <div class="file-upload-wrapper">
+            <button class="btn btn-secondary">📥 Import Profile</button>
+            <input type="file" id="importFileInput" accept=".json">
+          </div>
+        </div>
+      </section>
+    </main>
+
+    <!-- Quick Info -->
+    <footer class="footer">
+      <span>💡 Press <strong>Ctrl + Shift + F</strong> on AllJobs or Teletalk forms to open panel</span>
+    </footer>
+
+    <!-- Toast Notification -->
+    <div id="toast" class="toast hidden"></div>
+  </div>
+
+  <script src="popup.js"></script>
+</body>
+</html>
