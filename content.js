@@ -259,13 +259,6 @@
               <div class="acc-section">
                 <button class="acc-header" data-acc="job">💼 Job Experience <span class="acc-arrow">▾</span></button>
                 <div class="acc-body" id="acc-job">
-                  <div class="fg" style="margin-bottom:10px;">
-                    <label style="display:flex;align-items:center;gap:8px;cursor:pointer;font-size:12px;">
-                      <input type="checkbox" id="builderJobApplicable" data-key="if_applicable_exp" style="width:auto;accent-color:#10b981;">
-                      If Applicable (enable job experience)
-                    </label>
-                  </div>
-                  <div id="jobEntriesContainer" style="display:none;">
                   <div id="jobEntries">
                     <!-- Job 0 -->
                     <div class="job-entry" data-job-idx="0">
@@ -287,7 +280,6 @@
                   <div class="button-row" style="margin-top:8px;">
                     <button class="btn btn-secondary" id="addJobBtn" style="font-size:11px;padding:6px 12px;">+ Add Job</button>
                     <button class="btn btn-clear" id="removeJobBtn" style="font-size:11px;padding:6px 12px;">- Remove Last</button>
-                  </div>
                   </div>
                 </div>
               </div>
@@ -901,13 +893,6 @@
   // Multiple Job Experience — Add/Remove job entries
   // ═══════════════════════════════════════════════════════════════════════════
   var jobCount = 1;
-  var jobEntriesContainer = shadowRoot.getElementById('jobEntriesContainer');
-  var builderJobApplicable = shadowRoot.getElementById('builderJobApplicable');
-  if (builderJobApplicable && jobEntriesContainer) {
-    builderJobApplicable.addEventListener('change', function() {
-      jobEntriesContainer.style.display = builderJobApplicable.checked ? '' : 'none';
-    });
-  }
 
   function createJobEntry(idx) {
     var div = document.createElement('div');
@@ -1040,10 +1025,6 @@
     extraJobs.forEach(function(el) { if (el.getAttribute('data-job-idx') !== '0') el.remove(); });
     jobCount = 1;
 
-    // Reset job applicable checkbox
-    if (builderJobApplicable) builderJobApplicable.checked = false;
-    if (jobEntriesContainer) jobEntriesContainer.style.display = 'none';
-
     // Detect max job index in data and create entries as needed
     var maxJobIdx = 0;
     for (var dk in data) {
@@ -1053,12 +1034,6 @@
     for (var j = 1; j <= maxJobIdx; j++) {
       jobEntries.appendChild(createJobEntry(j));
       jobCount = j + 1;
-    }
-
-    // Auto-enable job section if job data exists
-    if (maxJobIdx >= 0 && data['job[0][employment_type]'] || data['job[0][designation]'] || data['job[0][organization]']) {
-      if (builderJobApplicable) builderJobApplicable.checked = true;
-      if (jobEntriesContainer) jobEntriesContainer.style.display = '';
     }
 
     // Populate from data
