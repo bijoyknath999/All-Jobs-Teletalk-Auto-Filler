@@ -1445,6 +1445,62 @@
 
     // ── Spouse Name ─────────────────────────────────────────────────────
     if (data.spouse_name) pageSetInput('spouse_name', data.spouse_name);
+
+    // ── Job Experience ──────────────────────────────────────────────────
+    // Collect job entries from data
+    var jobEntriesData = {};
+    var maxJobIdx = -1;
+    for (var dk in data) {
+      var jm = dk.match(/^job\[(\d+)\]\[(.+)\]$/);
+      if (jm) {
+        var jidx = parseInt(jm[1]);
+        var jfield = jm[2];
+        if (!jobEntriesData[jidx]) jobEntriesData[jidx] = {};
+        jobEntriesData[jidx][jfield] = data[dk];
+        if (jidx > maxJobIdx) maxJobIdx = jidx;
+      }
+    }
+
+    // Click "ADD MORE" button on the page for each job beyond the first
+    // The page has an #addNewJob button that calls addNewExp() to create new rows
+    if (maxJobIdx > 0) {
+      for (var ci = 1; ci <= maxJobIdx; ci++) {
+        (function(clickIdx) {
+          setTimeout(function() {
+            var addBtn = document.getElementById('addNewJob');
+            if (addBtn) addBtn.click();
+          }, clickIdx * 500);
+        })(ci);
+      }
+    }
+
+    // Fill all job fields with cascading delays to ensure rows are created first
+    for (var jidx = 0; jidx <= maxJobIdx; jidx++) {
+      (function(idx, jdata) {
+        var delay = idx === 0 ? 200 : (idx * 500 + 300);
+        setTimeout(function() {
+          var prefix = 'job[' + idx + ']';
+          if (jdata.employment_type) {
+            var etEl = document.querySelector('select[name="' + prefix + '[employment_type]"]');
+            if (etEl) { etEl.value = jdata.employment_type; etEl.dispatchEvent(new Event('change', {bubbles:true})); }
+          }
+          var textFields = ['designation', 'organization', 'office_address', 'last_salary', 'job_description'];
+          textFields.forEach(function(f) {
+            if (jdata[f]) {
+              var inp = document.querySelector('[name="' + prefix + '[' + f + ']"]');
+              if (inp) { inp.value = jdata[f]; inp.dispatchEvent(new Event('input', {bubbles:true})); }
+            }
+          });
+          var dateFields = ['job_start_date', 'job_end_date'];
+          dateFields.forEach(function(f) {
+            if (jdata[f]) {
+              var inp = document.querySelector('[name="' + prefix + '[' + f + ']"]');
+              if (inp) { inp.value = jdata[f]; inp.dispatchEvent(new Event('change', {bubbles:true})); }
+            }
+          });
+        }, delay);
+      })(jidx, jobEntriesData[jidx]);
+    }
   }
 
   // Auto-Fill Form core algorithm
