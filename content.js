@@ -289,6 +289,7 @@
             <!-- Builder Actions -->
             <div class="button-row" style="margin-top:12px;">
               <button class="btn btn-fill" id="generateJsonBtn">⚡ Generate JSON</button>
+              <button class="btn btn-secondary" id="syncBuilderJson">🔄 Sync to JSON</button>
             </div>
             <div class="button-row">
               <button class="btn btn-secondary" id="loadSampleBuilder">📝 Fill Sample</button>
@@ -1080,9 +1081,9 @@
       data.confirm_mobile = data.mobile;
     }
     modalJsonTextarea.value = JSON.stringify(data, null, 2);
-    // Switch to JSON tab to show result
-    tabJson.click();
-    showShadowToast('⚡ JSON generated! Check JSON tab.');
+    jsonStatus.textContent = 'Generated';
+    jsonStatus.style.color = '#10b981';
+    showShadowToast('⚡ JSON generated!');
   });
 
   loadSampleBuilder.addEventListener('click', function() {
@@ -1210,19 +1211,39 @@
     jsonStatus._timer = setTimeout(function() { jsonStatus.textContent = 'Ready'; }, 3000);
   }
 
-  // Live validation on input
+  // Live validation + auto-sync JSON → Builder
+  var jsonSyncTimer = null;
   modalJsonTextarea.addEventListener('input', function() {
     var raw = modalJsonTextarea.value.trim();
     if (!raw) { jsonStatus.textContent = 'Ready'; jsonStatus.style.color = ''; return; }
     try {
-      JSON.parse(raw);
+      var parsed = JSON.parse(raw);
       jsonStatus.textContent = 'Valid JSON';
       jsonStatus.style.color = '#10b981';
+      // Auto-sync to builder (debounced)
+      clearTimeout(jsonSyncTimer);
+      jsonSyncTimer = setTimeout(function() {
+        populateBuilder(parsed);
+      }, 800);
     } catch(e) {
       jsonStatus.textContent = 'Invalid JSON';
       jsonStatus.style.color = '#ef4444';
     }
   });
+
+  // Sync Builder → JSON button
+  var syncBuilderJsonBtn = shadowRoot.getElementById('syncBuilderJson');
+  if (syncBuilderJsonBtn) {
+    syncBuilderJsonBtn.addEventListener('click', function() {
+      var data = collectBuilderData();
+      if (Object.keys(data).length > 0) {
+        modalJsonTextarea.value = JSON.stringify(data, null, 2);
+        jsonStatus.textContent = 'Synced';
+        jsonStatus.style.color = '#10b981';
+        showShadowToast('Builder → JSON synced!');
+      }
+    });
+  }
 
   jsonFormatBtn.addEventListener('click', function() {
     var raw = modalJsonTextarea.value.trim();
