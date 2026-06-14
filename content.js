@@ -87,6 +87,7 @@
                     </div>
                     <div class="fg"><label>Nationality</label><input data-key="nationality"></div>
                     <div class="fg"><label>AllJobs ID</label><input data-key="alljobs_id"></div>
+                    <div class="fg"><label>Spouse Name</label><input data-key="spouse_name"></div>
                   </div>
                 </div>
               </div>
@@ -159,8 +160,9 @@
                       <select data-key="ssc_exam"><option value="">--</option><option>S.S.C</option><option>Dakhil</option><option>O Level</option><option>SSC(Vocational)</option></select>
                     </div>
                     <div class="fg"><label>Board</label>
-                      <select data-key="ssc_board"><option value="">--</option><option>Dhaka</option><option>Rajshahi</option><option>Comilla</option><option>Jessore</option><option>Chittagong</option><option>Barisal</option><option>Sylhet</option><option>Dinajpur</option><option>Mymensingh</option><option>Madrasah</option><option>Technical</option></select>
+                      <select data-key="ssc_board" data-show-child="ssc_board_other"><option value="">--</option><option value="11">Barishal</option><option value="12">Chattogram</option><option value="13">Cumilla</option><option value="14">Dhaka</option><option value="15">Dinajpur</option><option value="16">Jashore</option><option value="17">Madrasah</option><option value="18">Mymensingh</option><option value="19">Rajshahi</option><option value="20">Sylhet</option><option value="21">Open University</option><option value="22">Edexcel</option><option value="23">Cambridge IGCE</option><option value="26">BTEB</option><option value="99">Other</option></select>
                     </div>
+                    <div class="fg" id="ssc_board_other_wrap" style="display:none"><label>Board Name (Other)</label><input data-key="ssc_board_other"></div>
                     <div class="fg"><label>Roll</label><input data-key="ssc_roll"></div>
                     <div class="fg"><label>Group</label>
                       <select data-key="ssc_group"><option value="">--</option><option>Science</option><option>Arts</option><option>Commerce</option></select>
@@ -183,8 +185,9 @@
                       <select data-key="hsc_exam"><option value="">--</option><option>H.S.C</option><option>Alim</option><option>A Level</option><option>HSC(Vocational)</option></select>
                     </div>
                     <div class="fg"><label>Board</label>
-                      <select data-key="hsc_board"><option value="">--</option><option>Dhaka</option><option>Rajshahi</option><option>Comilla</option><option>Jessore</option><option>Chittagong</option><option>Barisal</option><option>Sylhet</option><option>Dinajpur</option><option>Mymensingh</option><option>Madrasah</option><option>Technical</option></select>
+                      <select data-key="hsc_board" data-show-child="hsc_board_other"><option value="">--</option><option value="11">Barishal</option><option value="12">Chattogram</option><option value="13">Cumilla</option><option value="14">Dhaka</option><option value="15">Dinajpur</option><option value="16">Jashore</option><option value="17">Madrasah</option><option value="18">Mymensingh</option><option value="19">Rajshahi</option><option value="20">Sylhet</option><option value="21">Open University</option><option value="22">Edexcel</option><option value="23">Cambridge IGCE</option><option value="26">BTEB</option><option value="99">Other</option></select>
                     </div>
+                    <div class="fg" id="hsc_board_other_wrap" style="display:none"><label>Board Name (Other)</label><input data-key="hsc_board_other"></div>
                     <div class="fg"><label>Roll</label><input data-key="hsc_roll"></div>
                     <div class="fg"><label>Group</label>
                       <select data-key="hsc_group"><option value="">--</option><option>Science</option><option>Arts</option><option>Commerce</option></select>
@@ -203,11 +206,13 @@
                 <button class="acc-header" data-acc="graduation">🏛️ Graduation <span class="acc-arrow">▾</span></button>
                 <div class="acc-body" id="acc-graduation">
                   <div class="form-grid">
-                    <div class="fg"><label>Institute</label><input data-key="gra_institute"></div>
+                    <div class="fg fg-full"><label>Institute (type name or select Other on form)</label><input data-key="gra_institute"></div>
+                    <div class="fg" id="gra_institute_other_wrap" style="display:none"><label>Institute Name (Other)</label><input data-key="gra_institute_other"></div>
                     <div class="fg"><label>Exam</label>
                       <select data-key="gra_exam"><option value="">--</option><option>Honors</option><option>B.Sc Engineering</option><option>MBBS</option><option>BBA</option><option>LLB</option></select>
                     </div>
                     <div class="fg"><label>Subject</label><input data-key="gra_subject"></div>
+                    <div class="fg" id="gra_subject_other_wrap" style="display:none"><label>Subject Name (Other)</label><input data-key="gra_subject_other"></div>
                     <div class="fg"><label>Passing Year</label><input data-key="gra_year"></div>
                     <div class="fg"><label>Duration (years)</label>
                       <select data-key="gra_duration"><option value="">--</option><option value="01">1 Year</option><option value="02">2 Years</option><option value="03">3 Years</option><option value="04">4 Years</option><option value="05">5 Years</option></select>
@@ -225,11 +230,13 @@
                 <button class="acc-header" data-acc="masters">🎓 Masters <span class="acc-arrow">▾</span></button>
                 <div class="acc-body" id="acc-masters">
                   <div class="form-grid">
-                    <div class="fg"><label>Institute</label><input data-key="mas_institute"></div>
+                    <div class="fg fg-full"><label>Institute (type name or select Other on form)</label><input data-key="mas_institute"></div>
+                    <div class="fg" id="mas_institute_other_wrap" style="display:none"><label>Institute Name (Other)</label><input data-key="mas_institute_other"></div>
                     <div class="fg"><label>Exam</label>
                       <select data-key="mas_exam"><option value="">--</option><option>M.A</option><option>M.Sc</option><option>MBA</option><option>LLM</option><option>M.Com</option></select>
                     </div>
                     <div class="fg"><label>Subject</label><input data-key="mas_subject"></div>
+                    <div class="fg" id="mas_subject_other_wrap" style="display:none"><label>Subject Name (Other)</label><input data-key="mas_subject_other"></div>
                     <div class="fg"><label>Passing Year</label><input data-key="mas_year"></div>
                     <div class="fg"><label>Duration</label>
                       <select data-key="mas_duration"><option value="">--</option><option value="01">1 Year</option><option value="02">2 Years</option></select>
@@ -246,16 +253,27 @@
               <div class="acc-section">
                 <button class="acc-header" data-acc="job">💼 Job Experience <span class="acc-arrow">▾</span></button>
                 <div class="acc-body" id="acc-job">
-                  <div class="form-grid">
-                    <div class="fg"><label>Employment Type</label>
-                      <select data-key="job[0][employment_type]"><option value="">--</option><option value="8">Full Time</option><option value="9">Part Time</option><option value="10">Contract</option><option value="11">Freelance</option></select>
+                  <div id="jobEntries">
+                    <!-- Job 0 -->
+                    <div class="job-entry" data-job-idx="0">
+                      <div class="job-entry-header"><span class="job-entry-num">Job 1</span></div>
+                      <div class="form-grid">
+                        <div class="fg"><label>Employment Type</label>
+                          <select data-key="job[0][employment_type]"><option value="">--</option><option value="1">Regular (Revenue)</option><option value="2">Ad-hoc (Revenue)</option><option value="3">Temporary (Revenue)</option><option value="4">Work Charged (Revenue)</option><option value="5">Temporary (Dev Project)</option><option value="6">Work Charged (Dev Project)</option><option value="7">Autonomous/Semi</option><option value="8">Private</option><option value="9">Business/Self Employed</option></select>
+                        </div>
+                        <div class="fg"><label>Designation</label><input data-key="job[0][designation]"></div>
+                        <div class="fg"><label>Organization</label><input data-key="job[0][organization]"></div>
+                        <div class="fg"><label>Office Address</label><input data-key="job[0][office_address]"></div>
+                        <div class="fg"><label>Start Date</label><input data-key="job[0][job_start_date]" type="date"></div>
+                        <div class="fg"><label>End Date</label><input data-key="job[0][job_end_date]" type="date"></div>
+                        <div class="fg"><label>Last Salary</label><input data-key="job[0][last_salary]" type="number"></div>
+                        <div class="fg fg-full"><label>Description</label><textarea data-key="job[0][job_description]" rows="2" maxlength="300"></textarea></div>
+                      </div>
                     </div>
-                    <div class="fg"><label>Designation</label><input data-key="job[0][designation]"></div>
-                    <div class="fg"><label>Organization</label><input data-key="job[0][organization]"></div>
-                    <div class="fg"><label>Office Address</label><input data-key="job[0][office_address]"></div>
-                    <div class="fg"><label>Start Date</label><input data-key="job[0][job_start_date]" type="date"></div>
-                    <div class="fg"><label>End Date</label><input data-key="job[0][job_end_date]" type="date"></div>
-                    <div class="fg fg-full"><label>Description</label><textarea data-key="job[0][job_description]" rows="2"></textarea></div>
+                  </div>
+                  <div class="button-row" style="margin-top:8px;">
+                    <button class="btn btn-secondary" id="addJobBtn" style="font-size:11px;padding:6px 12px;">+ Add Job</button>
+                    <button class="btn btn-clear" id="removeJobBtn" style="font-size:11px;padding:6px 12px;">- Remove Last</button>
                   </div>
                 </div>
               </div>
@@ -347,6 +365,9 @@
   const generateJsonBtn = shadowRoot.getElementById('generateJsonBtn');
   const loadSampleBuilder = shadowRoot.getElementById('loadSampleBuilder');
   const clearBuilderBtn = shadowRoot.getElementById('clearBuilder');
+  const addJobBtn = shadowRoot.getElementById('addJobBtn');
+  const removeJobBtn = shadowRoot.getElementById('removeJobBtn');
+  const jobEntries = shadowRoot.getElementById('jobEntries');
   const saveProfileBtn = shadowRoot.getElementById('saveProfileBtn');
   const deleteProfileBtn = shadowRoot.getElementById('deleteProfileBtn');
   const newProfileBtn = shadowRoot.getElementById('newProfileBtn');
@@ -863,6 +884,74 @@
   });
 
   // ═══════════════════════════════════════════════════════════════════════════
+  // Multiple Job Experience — Add/Remove job entries
+  // ═══════════════════════════════════════════════════════════════════════════
+  var jobCount = 1;
+
+  function createJobEntry(idx) {
+    var div = document.createElement('div');
+    div.className = 'job-entry';
+    div.setAttribute('data-job-idx', idx);
+    div.innerHTML =
+      '<div class="job-entry-header"><span class="job-entry-num">Job ' + (idx + 1) + '</span></div>' +
+      '<div class="form-grid">' +
+        '<div class="fg"><label>Employment Type</label>' +
+          '<select data-key="job[' + idx + '][employment_type]"><option value="">--</option><option value="1">Regular (Revenue)</option><option value="2">Ad-hoc (Revenue)</option><option value="3">Temporary (Revenue)</option><option value="4">Work Charged (Revenue)</option><option value="5">Temporary (Dev Project)</option><option value="6">Work Charged (Dev Project)</option><option value="7">Autonomous/Semi</option><option value="8">Private</option><option value="9">Business/Self Employed</option></select>' +
+        '</div>' +
+        '<div class="fg"><label>Designation</label><input data-key="job[' + idx + '][designation]"></div>' +
+        '<div class="fg"><label>Organization</label><input data-key="job[' + idx + '][organization]"></div>' +
+        '<div class="fg"><label>Office Address</label><input data-key="job[' + idx + '][office_address]"></div>' +
+        '<div class="fg"><label>Start Date</label><input data-key="job[' + idx + '][job_start_date]" type="date"></div>' +
+        '<div class="fg"><label>End Date</label><input data-key="job[' + idx + '][job_end_date]" type="date"></div>' +
+        '<div class="fg"><label>Last Salary</label><input data-key="job[' + idx + '][last_salary]" type="number"></div>' +
+        '<div class="fg fg-full"><label>Description</label><textarea data-key="job[' + idx + '][job_description]" rows="2" maxlength="300"></textarea></div>' +
+      '</div>';
+    return div;
+  }
+
+  addJobBtn.addEventListener('click', function() {
+    if (jobCount >= 10) { showShadowToast('Maximum 10 job entries', true); return; }
+    jobEntries.appendChild(createJobEntry(jobCount));
+    jobCount++;
+    showShadowToast('Added Job ' + jobCount);
+  });
+
+  removeJobBtn.addEventListener('click', function() {
+    if (jobCount <= 1) { showShadowToast('Need at least 1 job entry', true); return; }
+    jobCount--;
+    var last = jobEntries.querySelector('.job-entry[data-job-idx="' + jobCount + '"]');
+    if (last) last.remove();
+    showShadowToast('Removed last job entry');
+  });
+
+  // ═══════════════════════════════════════════════════════════════════════════
+  // "Other" field visibility — show text input when "Other" selected
+  // ═══════════════════════════════════════════════════════════════════════════
+  var otherFieldMap = {
+    'ssc_board': 'ssc_board_other_wrap',
+    'hsc_board': 'hsc_board_other_wrap',
+    'gra_institute': 'gra_institute_other_wrap',
+    'gra_subject': 'gra_subject_other_wrap',
+    'mas_institute': 'mas_institute_other_wrap',
+    'mas_subject': 'mas_subject_other_wrap'
+  };
+
+  function setupOtherFieldListeners() {
+    for (var selectKey in otherFieldMap) {
+      (function(key) {
+        var sel = shadowRoot.querySelector('select[data-key="' + key + '"]');
+        var wrapId = otherFieldMap[key];
+        if (!sel) return;
+        sel.addEventListener('change', function() {
+          var wrap = shadowRoot.getElementById(wrapId);
+          if (wrap) wrap.style.display = sel.value === 'Other' || sel.value === '99' || sel.value === '999' ? '' : 'none';
+        });
+      })(selectKey);
+    }
+  }
+  setupOtherFieldListeners();
+
+  // ═══════════════════════════════════════════════════════════════════════════
   // GPA field visibility in builder — only show when result_type is GPA/CGPA
   // ═══════════════════════════════════════════════════════════════════════════
   function updateGpaVisibility(sectionId) {
@@ -911,11 +1000,38 @@
     // Clear all builder fields first
     var fields = shadowRoot.querySelectorAll('#builderTab [data-key]');
     fields.forEach(function(el) { el.value = ''; });
+
+    // Remove extra job entries (keep only job 0)
+    var extraJobs = jobEntries.querySelectorAll('.job-entry[data-job-idx]');
+    extraJobs.forEach(function(el) { if (el.getAttribute('data-job-idx') !== '0') el.remove(); });
+    jobCount = 1;
+
+    // Detect max job index in data and create entries as needed
+    var maxJobIdx = 0;
+    for (var dk in data) {
+      var m = dk.match(/^job\[(\d+)\]/);
+      if (m) { var idx = parseInt(m[1]); if (idx > maxJobIdx) maxJobIdx = idx; }
+    }
+    for (var j = 1; j <= maxJobIdx; j++) {
+      jobEntries.appendChild(createJobEntry(j));
+      jobCount = j + 1;
+    }
+
     // Populate from data
     for (var key in data) {
       var el = shadowRoot.querySelector('#builderTab [data-key="' + key + '"]');
       if (el) el.value = data[key];
     }
+
+    // Show "Other" fields if value matches
+    for (var selectKey in otherFieldMap) {
+      var sel = shadowRoot.querySelector('select[data-key="' + selectKey + '"]');
+      var wrap = shadowRoot.getElementById(otherFieldMap[selectKey]);
+      if (sel && wrap) {
+        wrap.style.display = (sel.value === 'Other' || sel.value === '99' || sel.value === '999') ? '' : 'none';
+      }
+    }
+
     // Update GPA visibility
     ['acc-ssc', 'acc-hsc', 'acc-graduation', 'acc-masters'].forEach(updateGpaVisibility);
   }
@@ -1294,6 +1410,17 @@
         pageSetSelect('mas_subject', data.mas_subject);
       }, 800);
     }
+
+    // ── "Other" fields (board_other, institute_other, subject_other) ──
+    if (data.ssc_board_other) pageSetInput('ssc_board_other', data.ssc_board_other);
+    if (data.hsc_board_other) pageSetInput('hsc_board_other', data.hsc_board_other);
+    if (data.gra_institute_other) pageSetInput('gra_institute_other', data.gra_institute_other);
+    if (data.gra_subject_other) pageSetInput('gra_subject_other', data.gra_subject_other);
+    if (data.mas_institute_other) pageSetInput('mas_institute_other', data.mas_institute_other);
+    if (data.mas_subject_other) pageSetInput('mas_subject_other', data.mas_subject_other);
+
+    // ── Spouse Name ─────────────────────────────────────────────────────
+    if (data.spouse_name) pageSetInput('spouse_name', data.spouse_name);
   }
 
   // Auto-Fill Form core algorithm
