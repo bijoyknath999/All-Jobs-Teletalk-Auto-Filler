@@ -87,7 +87,6 @@
                     </div>
                     <div class="fg"><label>Nationality</label><input data-key="nationality"></div>
                     <div class="fg"><label>AllJobs ID</label><input data-key="alljobs_id"></div>
-                    <div class="fg"><label>Spouse Name</label><input data-key="spouse_name"></div>
                   </div>
                 </div>
               </div>
@@ -110,8 +109,9 @@
                     </div>
                     <div class="fg"><label>Passport No</label><input data-key="passport_no"></div>
                     <div class="fg"><label>Marital Status</label>
-                      <select data-key="marital_status"><option value="">--</option><option>Single</option><option>Married</option><option>Divorced</option><option>Widowed</option></select>
+                      <select data-key="marital_status" id="builderMaritalStatus"><option value="">--</option><option>Single</option><option>Married</option><option>Divorced</option><option>Widowed</option></select>
                     </div>
+                    <div class="fg" id="spouseNameWrap" style="display:none"><label>Spouse Name</label><input data-key="spouse_name"></div>
                     <div class="fg"><label>Quota</label>
                       <select data-key="quota"><option value="">--</option><option>Not Applicable</option><option>Child of Freedom Fighter</option><option>Child of Martyred Freedom Fighter</option><option>Child of War Heroine (Birangana)</option><option>Physically Challenged</option><option>Ethnic Minority</option><option>Third Gender</option></select>
                     </div>
@@ -165,9 +165,12 @@
                     <div class="fg" id="ssc_board_other_wrap" style="display:none"><label>Board Name (Other)</label><input data-key="ssc_board_other"></div>
                     <div class="fg"><label>Roll</label><input data-key="ssc_roll"></div>
                     <div class="fg"><label>Group</label>
-                      <select data-key="ssc_group"><option value="">--</option><option>Science</option><option>Arts</option><option>Commerce</option></select>
+                      <select data-key="ssc_group" data-show-child="ssc_group_other"><option value="">--</option><option value="1">Science</option><option value="2">Humanities</option><option value="3">Business Studies</option><option value="4">General</option><option value="99">Other</option></select>
                     </div>
-                    <div class="fg"><label>Passing Year</label><input data-key="ssc_year"></div>
+                    <div class="fg" id="ssc_group_other_wrap" style="display:none"><label>Group (Other)</label><input data-key="ssc_group_other"></div>
+                    <div class="fg"><label>Passing Year</label>
+                      <select data-key="ssc_year"><option value="">--</option><option>2026</option><option>2025</option><option>2024</option><option>2023</option><option>2022</option><option>2021</option><option>2020</option><option>2019</option><option>2018</option><option>2017</option><option>2016</option><option>2015</option><option>2014</option><option>2013</option><option>2012</option><option>2011</option><option>2010</option><option>2009</option><option>2008</option><option>2007</option><option>2006</option><option>2005</option></select>
+                    </div>
                     <div class="fg"><label>Result Type</label>
                       <select data-key="ssc_result_type"><option value="">--</option><option value="1">1st Division</option><option value="2">2nd Division</option><option value="3">3rd Division</option><option value="4">GPA(out of 4)</option><option value="5">GPA(out of 5)</option></select>
                     </div>
@@ -190,9 +193,12 @@
                     <div class="fg" id="hsc_board_other_wrap" style="display:none"><label>Board Name (Other)</label><input data-key="hsc_board_other"></div>
                     <div class="fg"><label>Roll</label><input data-key="hsc_roll"></div>
                     <div class="fg"><label>Group</label>
-                      <select data-key="hsc_group"><option value="">--</option><option>Science</option><option>Arts</option><option>Commerce</option></select>
+                      <select data-key="hsc_group" data-show-child="hsc_group_other"><option value="">--</option><option value="1">Science</option><option value="2">Humanities</option><option value="3">Business Studies</option><option value="4">General</option><option value="99">Other</option></select>
                     </div>
-                    <div class="fg"><label>Passing Year</label><input data-key="hsc_year"></div>
+                    <div class="fg" id="hsc_group_other_wrap" style="display:none"><label>Group (Other)</label><input data-key="hsc_group_other"></div>
+                    <div class="fg"><label>Passing Year</label>
+                      <select data-key="hsc_year"><option value="">--</option><option>2026</option><option>2025</option><option>2024</option><option>2023</option><option>2022</option><option>2021</option><option>2020</option><option>2019</option><option>2018</option><option>2017</option><option>2016</option><option>2015</option><option>2014</option><option>2013</option><option>2012</option><option>2011</option><option>2010</option><option>2009</option><option>2008</option><option>2007</option><option>2006</option><option>2005</option></select>
+                    </div>
                     <div class="fg"><label>Result Type</label>
                       <select data-key="hsc_result_type"><option value="">--</option><option value="1">1st Division</option><option value="2">2nd Division</option><option value="3">3rd Division</option><option value="4">GPA(out of 4)</option><option value="5">GPA(out of 5)</option></select>
                     </div>
@@ -253,6 +259,13 @@
               <div class="acc-section">
                 <button class="acc-header" data-acc="job">💼 Job Experience <span class="acc-arrow">▾</span></button>
                 <div class="acc-body" id="acc-job">
+                  <div class="fg" style="margin-bottom:10px;">
+                    <label style="display:flex;align-items:center;gap:8px;cursor:pointer;font-size:12px;">
+                      <input type="checkbox" id="builderJobApplicable" data-key="if_applicable_exp" style="width:auto;accent-color:#10b981;">
+                      If Applicable (enable job experience)
+                    </label>
+                  </div>
+                  <div id="jobEntriesContainer" style="display:none;">
                   <div id="jobEntries">
                     <!-- Job 0 -->
                     <div class="job-entry" data-job-idx="0">
@@ -274,6 +287,7 @@
                   <div class="button-row" style="margin-top:8px;">
                     <button class="btn btn-secondary" id="addJobBtn" style="font-size:11px;padding:6px 12px;">+ Add Job</button>
                     <button class="btn btn-clear" id="removeJobBtn" style="font-size:11px;padding:6px 12px;">- Remove Last</button>
+                  </div>
                   </div>
                 </div>
               </div>
@@ -887,6 +901,13 @@
   // Multiple Job Experience — Add/Remove job entries
   // ═══════════════════════════════════════════════════════════════════════════
   var jobCount = 1;
+  var jobEntriesContainer = shadowRoot.getElementById('jobEntriesContainer');
+  var builderJobApplicable = shadowRoot.getElementById('builderJobApplicable');
+  if (builderJobApplicable && jobEntriesContainer) {
+    builderJobApplicable.addEventListener('change', function() {
+      jobEntriesContainer.style.display = builderJobApplicable.checked ? '' : 'none';
+    });
+  }
 
   function createJobEntry(idx) {
     var div = document.createElement('div');
@@ -930,6 +951,8 @@
   var otherFieldMap = {
     'ssc_board': 'ssc_board_other_wrap',
     'hsc_board': 'hsc_board_other_wrap',
+    'ssc_group': 'ssc_group_other_wrap',
+    'hsc_group': 'hsc_group_other_wrap',
     'gra_institute': 'gra_institute_other_wrap',
     'gra_subject': 'gra_subject_other_wrap',
     'mas_institute': 'mas_institute_other_wrap',
@@ -950,6 +973,17 @@
     }
   }
   setupOtherFieldListeners();
+
+  // ═══════════════════════════════════════════════════════════════════════════
+  // Marital Status → Spouse Name visibility
+  // ═══════════════════════════════════════════════════════════════════════════
+  var maritalSelect = shadowRoot.getElementById('builderMaritalStatus');
+  var spouseWrap = shadowRoot.getElementById('spouseNameWrap');
+  if (maritalSelect && spouseWrap) {
+    maritalSelect.addEventListener('change', function() {
+      spouseWrap.style.display = maritalSelect.value === 'Married' ? '' : 'none';
+    });
+  }
 
   // ═══════════════════════════════════════════════════════════════════════════
   // GPA field visibility in builder — only show when result_type is GPA/CGPA
@@ -1006,6 +1040,10 @@
     extraJobs.forEach(function(el) { if (el.getAttribute('data-job-idx') !== '0') el.remove(); });
     jobCount = 1;
 
+    // Reset job applicable checkbox
+    if (builderJobApplicable) builderJobApplicable.checked = false;
+    if (jobEntriesContainer) jobEntriesContainer.style.display = 'none';
+
     // Detect max job index in data and create entries as needed
     var maxJobIdx = 0;
     for (var dk in data) {
@@ -1015,6 +1053,12 @@
     for (var j = 1; j <= maxJobIdx; j++) {
       jobEntries.appendChild(createJobEntry(j));
       jobCount = j + 1;
+    }
+
+    // Auto-enable job section if job data exists
+    if (maxJobIdx >= 0 && data['job[0][employment_type]'] || data['job[0][designation]'] || data['job[0][organization]']) {
+      if (builderJobApplicable) builderJobApplicable.checked = true;
+      if (jobEntriesContainer) jobEntriesContainer.style.display = '';
     }
 
     // Populate from data
@@ -1030,6 +1074,11 @@
       if (sel && wrap) {
         wrap.style.display = (sel.value === 'Other' || sel.value === '99' || sel.value === '999') ? '' : 'none';
       }
+    }
+
+    // Show spouse name if married
+    if (maritalSelect && spouseWrap) {
+      spouseWrap.style.display = maritalSelect.value === 'Married' ? '' : 'none';
     }
 
     // Update GPA visibility
