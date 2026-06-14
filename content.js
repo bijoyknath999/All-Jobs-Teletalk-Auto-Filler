@@ -139,8 +139,14 @@
                     <div class="fg"><label>District</label><input data-key="present_district"></div>
                     <div class="fg"><label>Upazila</label><input data-key="present_upazila"></div>
                   </div>
-                  <div class="section-divider">Permanent Address</div>
-                  <div class="form-grid">
+                  <div class="section-divider" style="display:flex;align-items:center;justify-content:space-between;">
+                    <span>Permanent Address</span>
+                    <label style="display:flex;align-items:center;gap:6px;font-size:11px;cursor:pointer;text-transform:none;letter-spacing:0;color:#9ca3af;border-bottom:none;margin:0;padding:0;">
+                      <input type="checkbox" id="sameAsPresent" data-key="same_as_present" style="width:auto;accent-color:#10b981;height:12px;">
+                      Same as Present
+                    </label>
+                  </div>
+                  <div class="form-grid" id="permanentAddressGrid">
                     <div class="fg"><label>C/O</label><input data-key="permanent_careof"></div>
                     <div class="fg"><label>Village/Road</label><input data-key="permanent_village"></div>
                     <div class="fg"><label>Post Office</label><input data-key="permanent_post"></div>
@@ -963,6 +969,40 @@
   setupOtherFieldListeners();
 
   // ═══════════════════════════════════════════════════════════════════════════
+  // Same as Present Address checkbox
+  // ═══════════════════════════════════════════════════════════════════════════
+  var sameAsPresentCheckbox = shadowRoot.getElementById('sameAsPresent');
+  var addressFields = ['careof', 'village', 'post', 'postcode', 'district', 'upazila'];
+  if (sameAsPresentCheckbox) {
+    sameAsPresentCheckbox.addEventListener('change', function() {
+      addressFields.forEach(function(f) {
+        var src = shadowRoot.querySelector('[data-key="present_' + f + '"]');
+        var dst = shadowRoot.querySelector('[data-key="permanent_' + f + '"]');
+        if (src && dst) {
+          if (sameAsPresentCheckbox.checked) {
+            dst.value = src.value;
+          }
+        }
+      });
+      if (sameAsPresentCheckbox.checked) {
+        showShadowToast('Copied present address to permanent');
+      }
+    });
+    // Also sync when present fields change while checkbox is checked
+    addressFields.forEach(function(f) {
+      var src = shadowRoot.querySelector('[data-key="present_' + f + '"]');
+      if (src) {
+        src.addEventListener('input', function() {
+          if (sameAsPresentCheckbox.checked) {
+            var dst = shadowRoot.querySelector('[data-key="permanent_' + f + '"]');
+            if (dst) dst.value = src.value;
+          }
+        });
+      }
+    });
+  }
+
+  // ═══════════════════════════════════════════════════════════════════════════
   // Marital Status → Spouse Name visibility
   // ═══════════════════════════════════════════════════════════════════════════
   var maritalSelect = shadowRoot.getElementById('builderMaritalStatus');
@@ -1478,6 +1518,13 @@
 
     // ── Spouse Name ─────────────────────────────────────────────────────
     if (data.spouse_name) pageSetInput('spouse_name', data.spouse_name);
+
+    // ── Same as Present Address ─────────────────────────────────────────
+    // If permanent address matches present, click the page's same_as_present checkbox
+    if (data.same_as_present === 'true' || data.same_as_present === true) {
+      var sapEl = document.getElementById('same_as_present');
+      if (sapEl && !sapEl.checked) sapEl.click();
+    }
 
     // ── Job Experience ──────────────────────────────────────────────────
     // Only run job filling once (this function is called 3 times across phases)
