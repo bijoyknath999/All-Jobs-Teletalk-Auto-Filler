@@ -272,7 +272,7 @@
                         <div class="fg"><label>Office Address</label><input data-key="job[0][office_address]"></div>
                         <div class="fg"><label>Start Date</label><input data-key="job[0][job_start_date]" type="date"></div>
                         <div class="fg"><label>End Date</label><input data-key="job[0][job_end_date]" type="date"></div>
-                        <div class="fg"><label>Last Salary</label><input data-key="job[0][last_salary]" type="number"></div>
+                        <div class="fg fg-full" style="flex-direction:row;align-items:center;gap:8px;"><label style="margin:0;font-size:11px;">Currently Working</label><input type="checkbox" data-key="job[0][currently_working]" style="width:auto;accent-color:#10b981;height:14px;"></div>
                         <div class="fg fg-full"><label>Description</label><textarea data-key="job[0][job_description]" rows="2" maxlength="300"></textarea></div>
                       </div>
                     </div>
@@ -911,7 +911,7 @@
         '<div class="fg"><label>Office Address</label><input data-key="job[' + idx + '][office_address]"></div>' +
         '<div class="fg"><label>Start Date</label><input data-key="job[' + idx + '][job_start_date]" type="date"></div>' +
         '<div class="fg"><label>End Date</label><input data-key="job[' + idx + '][job_end_date]" type="date"></div>' +
-        '<div class="fg"><label>Last Salary</label><input data-key="job[' + idx + '][last_salary]" type="number"></div>' +
+        '<div class="fg fg-full" style="flex-direction:row;align-items:center;gap:8px;"><label style="margin:0;font-size:11px;">Currently Working</label><input type="checkbox" data-key="job[' + idx + '][currently_working]" style="width:auto;accent-color:#10b981;height:14px;"></div>' +
         '<div class="fg fg-full"><label>Description</label><textarea data-key="job[' + idx + '][job_description]" rows="2" maxlength="300"></textarea></div>' +
       '</div>';
     return div;
@@ -1009,9 +1009,11 @@
     var fields = shadowRoot.querySelectorAll('#builderTab [data-key]');
     fields.forEach(function(el) {
       var key = el.getAttribute('data-key');
-      var val = (el.value || '').trim();
-      if (val !== '') {
-        data[key] = val;
+      if (el.type === 'checkbox') {
+        if (el.checked) data[key] = 'true';
+      } else {
+        var val = (el.value || '').trim();
+        if (val !== '') data[key] = val;
       }
     });
     return data;
@@ -1041,7 +1043,12 @@
     // Populate from data
     for (var key in data) {
       var el = shadowRoot.querySelector('#builderTab [data-key="' + key + '"]');
-      if (el) el.value = data[key];
+      if (!el) continue;
+      if (el.type === 'checkbox') {
+        el.checked = data[key] === 'true' || data[key] === true;
+      } else {
+        el.value = data[key];
+      }
     }
 
     // Show "Other" fields if value matches
@@ -1085,7 +1092,10 @@
 
   clearBuilderBtn.addEventListener('click', function() {
     var fields = shadowRoot.querySelectorAll('#builderTab [data-key]');
-    fields.forEach(function(el) { el.value = ''; });
+    fields.forEach(function(el) {
+      if (el.type === 'checkbox') el.checked = false;
+      else el.value = '';
+    });
     ['acc-ssc', 'acc-hsc', 'acc-graduation', 'acc-masters'].forEach(updateGpaVisibility);
     showShadowToast('🗑️ Builder fields cleared!');
   });
@@ -1503,6 +1513,11 @@
                 if (inp) { inp.value = jdata[f]; inp.dispatchEvent(new Event('change', {bubbles:true})); }
               }
             });
+            // Currently Working checkbox
+            if (jdata.currently_working === 'true' || jdata.currently_working === true || !jdata.job_end_date) {
+              var cw = document.querySelector('input[name="' + prefix + '[currently_working]"]');
+              if (cw && !cw.checked) { cw.click(); }
+            }
           }, delay);
         })(jidx, jobEntriesData[jidx]);
       }
